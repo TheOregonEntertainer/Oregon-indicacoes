@@ -387,15 +387,13 @@
     <header>
       <!-- LOGO -->
       <div class="logo-wrap">
-        <svg viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Oregon Invest">
-          <!-- "oreg" -->
-          <text x="0" y="22" font-family="Jost" font-weight="300" font-size="22" fill="white" letter-spacing="0.5">oreg</text>
-          <!-- stylized "o" circle — positioned after "oreg" -->
-          <circle cx="87" cy="13" r="10" fill="#4FB2A4"/>
-          <circle cx="87" cy="13" r="7" fill="#0F3A3D"/>
-          <!-- "n" -->
-          <text x="98" y="22" font-family="Jost" font-weight="300" font-size="22" fill="white" letter-spacing="0.5">n</text>
-        </svg>
+        <div style="display:flex;align-items:center;justify-content:center;gap:0;font-family:'Jost',sans-serif;font-weight:300;font-size:42px;color:#ffffff;letter-spacing:0.02em;line-height:1;" aria-label="Oregon Invest">
+          <span>oreg</span>
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#4FB2A4;margin:0 2px;flex-shrink:0;">
+            <span style="display:block;width:23px;height:23px;border-radius:50%;background:#0F3A3D;"></span>
+          </span>
+          <span>n</span>
+        </div>
         <div class="logo-sub">Invest</div>
         <div class="logo-tagline">Você no centro, sempre.</div>
       </div>
@@ -559,7 +557,7 @@
 
   // ── configuração ─────────────────────────────────────────────────
   // Cole aqui a URL gerada pelo Apps Script após publicar o script como Web App
-  const SHEET_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz4YeH-JKUdKCN5OhYMPZ2a8FN7F9-PTv2tzk9YrKvDuMVwlSXy_3g8RAE82ffPZHekgQ/exec';
   const SECRET_TOKEN = 'oregon2025'; // deve ser igual ao definido no Apps Script
 
   // ── submit ───────────────────────────────────────────────────────
@@ -619,7 +617,7 @@
     btn.textContent = 'Enviando...';
     btn.style.opacity = '0.6';
 
-    // ── envio para Google Sheets via JSONP ──
+    // ── envio para Google Sheets via fetch no-cors ──
     const payload = {
       remetente: document.getElementById('sender-name').value.trim(),
       token: SECRET_TOKEN,
@@ -627,37 +625,21 @@
       indicacoes: filled
     };
 
-    const callbackName = 'oregonCallback_' + Date.now();
-    const encoded = encodeURIComponent(JSON.stringify(payload));
-    const script = document.createElement('script');
-    const timeout = setTimeout(() => {
-      cleanup();
+    try {
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      });
+      // no-cors não retorna resposta — aguarda 1.5s e assume sucesso
+      setTimeout(() => { showSuccess(filled.length); }, 1500);
+    } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Enviar indicações';
       btn.style.opacity = '1';
       showNetworkError();
-    }, 10000);
-
-    function cleanup() {
-      clearTimeout(timeout);
-      delete window[callbackName];
-      if (script.parentNode) script.parentNode.removeChild(script);
     }
-
-    window[callbackName] = function(response) {
-      cleanup();
-      showSuccess(filled.length);
-    };
-
-    script.src = SHEET_URL + '?callback=' + callbackName + '&data=' + encoded;
-    script.onerror = function() {
-      cleanup();
-      btn.disabled = false;
-      btn.textContent = 'Enviar indicações';
-      btn.style.opacity = '1';
-      showNetworkError();
-    };
-    document.body.appendChild(script);
   });
 
   function showSuccess(n) {
