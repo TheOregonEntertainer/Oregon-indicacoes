@@ -139,6 +139,45 @@
     flex-shrink: 0;
   }
 
+  /* ── identificação do remetente ── */
+  .sender-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 0.5px solid rgba(79,178,164,0.14);
+  }
+  .sender-label {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--label);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .sender-input {
+    width: 100%;
+    max-width: 320px;
+    background: rgba(255,255,255,0.03);
+    border: var(--input-border);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .sender-input::placeholder { color: rgba(255,255,255,0.22); }
+  .sender-input:focus {
+    border-color: var(--teal-border);
+    background: rgba(79,178,164,0.04);
+  }
+  .sender-input.error {
+    border-color: var(--error) !important;
+    background: rgba(220,80,60,0.05);
+  }
+
   /* ── column headers ── */
   .col-headers {
     display: grid;
@@ -371,6 +410,12 @@
       </div>
     </header>
 
+    <!-- IDENTIFICAÇÃO DO REMETENTE -->
+    <div class="sender-section">
+      <span class="sender-label">Seu nome completo</span>
+      <input type="text" id="sender-name" class="sender-input" placeholder="Como você se chama?" autocomplete="off">
+    </div>
+
     <!-- COLUMN HEADERS -->
     <div class="col-headers">
       <span></span>
@@ -478,6 +523,11 @@
     phoneInput.addEventListener('input', () => clearError(phoneInput));
   }
 
+  // sender error clear
+  document.getElementById('sender-name').addEventListener('input', function() {
+    this.classList.remove('error');
+  });
+
   // ── phone mask ───────────────────────────────────────────────────
   function phoneMask(input) {
     let v = input.value.replace(/\D/g, '').slice(0, 11);
@@ -509,7 +559,7 @@
 
   // ── configuração ─────────────────────────────────────────────────
   // Cole aqui a URL gerada pelo Apps Script após publicar o script como Web App
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz4YeH-JKUdKCN5OhYMPZ2a8FN7F9-PTv2tzk9YrKvDuMVwlSXy_3g8RAE82ffPZHekgQ/exec';
+  const SHEET_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
   const SECRET_TOKEN = 'oregon2025'; // deve ser igual ao definido no Apps Script
 
   // ── submit ───────────────────────────────────────────────────────
@@ -544,6 +594,15 @@
       }
     });
 
+    // valida nome do remetente
+    const senderEl = document.getElementById('sender-name');
+    const senderName = senderEl.value.trim();
+    if (!senderName) {
+      senderEl.classList.add('error');
+      senderEl.focus();
+      valid = false;
+    }
+
     // nothing touched at all → highlight row 1
     if (!anyTouched) {
       rows[0].querySelector('[data-field="name"]').classList.add('error');
@@ -560,31 +619,45 @@
     btn.textContent = 'Enviando...';
     btn.style.opacity = '0.6';
 
-    // ── envio para Google Sheets ──
-    try {
-      const payload = {
-        token: SECRET_TOKEN,
-        timestamp: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
-        indicacoes: filled
-      };
+    // ── envio para Google Sheets via JSONP ──
+    const payload = {
+      remetente: document.getElementById('sender-name').value.trim(),
+      token: SECRET_TOKEN,
+      timestamp: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+      indicacoes: filled
+    };
 
-      await fetch(SHEET_URL, {
-        method: 'POST',
-        // Apps Script como Web App requer no-cors para chamadas cross-origin sem CORS headers
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      // no-cors não permite ler a resposta — assumimos sucesso se não lançou erro
-      showSuccess(filled.length);
-
-    } catch (err) {
+    const callbackName = 'oregonCallback_' + Date.now();
+    const encoded = encodeURIComponent(JSON.stringify(payload));
+    const script = document.createElement('script');
+    const timeout = setTimeout(() => {
+      cleanup();
       btn.disabled = false;
       btn.textContent = 'Enviar indicações';
       btn.style.opacity = '1';
       showNetworkError();
+    }, 10000);
+
+    function cleanup() {
+      clearTimeout(timeout);
+      delete window[callbackName];
+      if (script.parentNode) script.parentNode.removeChild(script);
     }
+
+    window[callbackName] = function(response) {
+      cleanup();
+      showSuccess(filled.length);
+    };
+
+    script.src = SHEET_URL + '?callback=' + callbackName + '&data=' + encoded;
+    script.onerror = function() {
+      cleanup();
+      btn.disabled = false;
+      btn.textContent = 'Enviar indicações';
+      btn.style.opacity = '1';
+      showNetworkError();
+    };
+    document.body.appendChild(script);
   });
 
   function showSuccess(n) {
