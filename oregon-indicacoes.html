@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indicações — Oregon Invest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: linear-gradient(145deg, #0D2B2E 0%, #0F3A3D 40%, #0A2E32 100%);
+    --teal: #4FB2A4;
+    --teal-hover: #5EC4B5;
+    --teal-light: rgba(79,178,164,0.12);
+    --teal-border: rgba(79,178,164,0.7);
+    --teal-muted: rgba(79,178,164,0.6);
+    --white: #ffffff;
+    --label: rgba(255,255,255,0.3);
+    --placeholder: rgba(255,255,255,0.18);
+    --input-border: 0.5px solid rgba(255,255,255,0.18);
+    --sep: rgba(255,255,255,0.07);
+    --error: rgba(220,80,60,0.85);
+    --bg-dark: #0D2B2E;
+    --bg-mid: #0F3A3D;
+  }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Jost', sans-serif;
+    background: var(--bg);
+    background-attachment: fixed;
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── decorative background circles ── */
+  .bg-circles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .bg-circles span {
+    position: absolute;
+    border-radius: 50%;
+    border: 0.5px solid rgba(79,178,164,0.08);
+  }
+  .c1 { width: 520px; height: 520px; top: -180px; right: -160px; }
+  .c2 { width: 340px; height: 340px; top: -60px;  right: -40px;  border-color: rgba(79,178,164,0.12); }
+  .c3 { width: 400px; height: 400px; bottom: -180px; left: -140px; }
+
+  /* ── page wrapper ── */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 28px 64px;
+  }
+
+  /* ── header ── */
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+
+  /* ── logo ── */
+  .logo-wrap { margin-bottom: 14px; }
+  .logo-sub {
+    font-family: 'Jost', sans-serif;
+    font-size: 7px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .logo-tagline {
+    font-family: 'Jost', sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  .divider {
+    width: 36px;
+    height: 0.5px;
+    background: rgba(79,178,164,0.5);
+    margin: 20px auto 18px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 28px;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    border: 0.5px solid rgba(79,178,164,0.28);
+    border-radius: 2px;
+    padding: 7px 16px;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.02em;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* ── column headers ── */
+  .col-headers {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr 1fr 1fr;
+    gap: 0 12px;
+    padding: 0 0 8px 0;
+    border-bottom: 0.5px solid rgba(79,178,164,0.14);
+    margin-bottom: 0;
+  }
+  .col-headers span {
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--label);
+  }
+  .col-headers .opt-label { color: rgba(255,255,255,0.18); }
+
+  /* ── indicado rows ── */
+  .indicado-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr 1fr 1fr;
+    gap: 0 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--sep);
+    transition: background 0.2s;
+  }
+
+  .row-num {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--teal-muted);
+    text-align: center;
+    line-height: 1;
+    transition: color 0.25s;
+    letter-spacing: 0.02em;
+  }
+  .indicado-row.row-complete .row-num {
+    color: var(--teal);
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: var(--input-border);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 7px 10px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input::placeholder { color: rgba(255,255,255,0.22); }
+  select { color: rgba(255,255,255,0.55); cursor: pointer; }
+  select option { background: #0F3A3D; color: var(--white); }
+
+  input:focus, select:focus {
+    border-color: var(--teal-border);
+    background: rgba(79,178,164,0.04);
+  }
+  input.error, select.error {
+    border-color: var(--error) !important;
+    background: rgba(220,80,60,0.05);
+  }
+
+  /* ── progress ── */
+  .progress-wrap {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .progress-labels span {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.04em;
+  }
+  .progress-count { color: var(--teal) !important; font-weight: 400 !important; }
+  .progress-bar-bg {
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 1px;
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+
+  /* ── submit ── */
+  .submit-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+  }
+  .btn-submit {
+    background: var(--teal);
+    color: var(--bg-dark);
+    border: none;
+    border-radius: 1px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    padding: 1rem 3.5rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-submit:hover { background: var(--teal-hover); }
+  .btn-submit:active { transform: scale(0.98); }
+
+  /* ── footer ── */
+  footer {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── success screen ── */
+  .success-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 60vh;
+    text-align: center;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .check-circle {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    border: 0.5px solid var(--teal);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .success-screen h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 30px;
+    color: var(--white);
+  }
+  .success-screen p {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    max-width: 340px;
+    line-height: 1.7;
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 580px) {
+    .col-headers { display: none; }
+    .indicado-row {
+      grid-template-columns: 22px 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 8px 10px;
+      padding: 14px 0;
+    }
+    .indicado-row > :nth-child(4),
+    .indicado-row > :nth-child(5) {
+      grid-column: 2 / 4;
+    }
+    .indicado-row > :nth-child(4) { grid-row: 2; grid-column: 2; }
+    .indicado-row > :nth-child(5) { grid-row: 2; grid-column: 3; }
+    .row-num { grid-row: 1; grid-column: 1; align-self: start; padding-top: 8px; }
+    .page { padding: 36px 18px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-circles" aria-hidden="true">
+  <span class="c1"></span>
+  <span class="c2"></span>
+  <span class="c3"></span>
+</div>
+
+<main class="page">
+
+  <!-- ── FORM SECTION ── -->
+  <div id="form-section">
+    <header>
+      <!-- LOGO -->
+      <div class="logo-wrap">
+        <svg viewBox="0 0 148 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Oregon Invest">
+          <!-- "oreg" -->
+          <text x="0" y="22" font-family="Jost" font-weight="300" font-size="22" fill="white" letter-spacing="0.5">oreg</text>
+          <!-- stylized "o" circle — positioned after "oreg" -->
+          <circle cx="87" cy="13" r="10" fill="#4FB2A4"/>
+          <circle cx="87" cy="13" r="7" fill="#0F3A3D"/>
+          <!-- "n" -->
+          <text x="98" y="22" font-family="Jost" font-weight="300" font-size="22" fill="white" letter-spacing="0.5">n</text>
+        </svg>
+        <div class="logo-sub">Invest</div>
+        <div class="logo-tagline">Você no centro, sempre.</div>
+      </div>
+
+      <div class="divider"></div>
+      <h1>Apresente quem você acredita</h1>
+      <p class="subtitle">Preencha os dados dos contatos que gostaria de nos apresentar</p>
+
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Complete 10 indicações e ganhe 1 mês de consultoria gratuito
+      </div>
+    </header>
+
+    <!-- COLUMN HEADERS -->
+    <div class="col-headers">
+      <span></span>
+      <span>Nome completo</span>
+      <span>Telefone</span>
+      <span>Cidade <span class="opt-label">opcional</span></span>
+      <span>Vínculo <span class="opt-label">opcional</span></span>
+    </div>
+
+    <!-- ROWS -->
+    <div id="rows-container"></div>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrap">
+      <div class="progress-labels">
+        <span>Progresso das indicações</span>
+        <span class="progress-count" id="progress-count">0 / 10</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button class="btn-submit" id="btn-submit">Enviar indicações</button>
+    </div>
+
+    <footer>Seus dados são tratados com total confidencialidade.</footer>
+  </div>
+
+  <!-- ── SUCCESS SECTION ── -->
+  <div class="success-screen" id="success-screen">
+    <div class="check-circle">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <polyline points="6,14 12,20 22,9" stroke="#4FB2A4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Indicações recebidas</h2>
+    <p id="success-msg"></p>
+  </div>
+
+</main>
+
+<script>
+(function () {
+  const TOTAL = 10;
+  const vinculos = ['—', 'Família', 'Amigo', 'Conhecido'];
+
+  // ── build rows ──────────────────────────────────────────────────
+  const container = document.getElementById('rows-container');
+
+  for (let i = 1; i <= TOTAL; i++) {
+    const num = String(i).padStart(2, '0');
+    const row = document.createElement('div');
+    row.className = 'indicado-row';
+    row.dataset.index = i;
+
+    // number
+    const numEl = document.createElement('span');
+    numEl.className = 'row-num';
+    numEl.textContent = num;
+    row.appendChild(numEl);
+
+    // name
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.placeholder = 'Nome completo';
+    nameInput.dataset.field = 'name';
+    nameInput.autocomplete = 'off';
+    row.appendChild(nameInput);
+
+    // phone
+    const phoneInput = document.createElement('input');
+    phoneInput.type = 'tel';
+    phoneInput.placeholder = '(00) 00000-0000';
+    phoneInput.dataset.field = 'phone';
+    phoneInput.autocomplete = 'off';
+    row.appendChild(phoneInput);
+
+    // city
+    const cityInput = document.createElement('input');
+    cityInput.type = 'text';
+    cityInput.placeholder = '—';
+    cityInput.dataset.field = 'city';
+    row.appendChild(cityInput);
+
+    // vínculo
+    const sel = document.createElement('select');
+    sel.dataset.field = 'vinculo';
+    vinculos.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v === '—' ? '' : v;
+      opt.textContent = v;
+      sel.appendChild(opt);
+    });
+    row.appendChild(sel);
+
+    container.appendChild(row);
+
+    // events
+    nameInput.addEventListener('input', () => { updateRowState(row); updateProgress(); });
+    phoneInput.addEventListener('input', () => { phoneMask(phoneInput); updateRowState(row); updateProgress(); });
+    nameInput.addEventListener('input', () => clearError(nameInput));
+    phoneInput.addEventListener('input', () => clearError(phoneInput));
+  }
+
+  // ── phone mask ───────────────────────────────────────────────────
+  function phoneMask(input) {
+    let v = input.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length === 0) { input.value = ''; return; }
+    if (v.length <= 2)  { input.value = '(' + v; return; }
+    if (v.length <= 6)  { input.value = '(' + v.slice(0,2) + ') ' + v.slice(2); return; }
+    if (v.length <= 10) { input.value = '(' + v.slice(0,2) + ') ' + v.slice(2,6) + '-' + v.slice(6); return; }
+    // 11 digits — mobile
+    input.value = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  }
+
+  // ── row complete state ───────────────────────────────────────────
+  function updateRowState(row) {
+    const name  = row.querySelector('[data-field="name"]').value.trim();
+    const phone = row.querySelector('[data-field="phone"]').value.trim();
+    row.classList.toggle('row-complete', name.length > 0 && phone.length >= 10);
+  }
+
+  // ── progress ─────────────────────────────────────────────────────
+  function updateProgress() {
+    const count = document.querySelectorAll('.row-complete').length;
+    document.getElementById('progress-count').textContent = count + ' / 10';
+    document.getElementById('progress-fill').style.width = (count / TOTAL * 100) + '%';
+  }
+
+  function clearError(el) {
+    el.classList.remove('error');
+  }
+
+  // ── configuração ─────────────────────────────────────────────────
+  // Cole aqui a URL gerada pelo Apps Script após publicar o script como Web App
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzeb-kpOIsM8hbtPtigjIZn4M6ZsnuPYyN_6TjWlvLQduT_mcteLfh7V3UgVB2GJ1qQjg/exec';
+  const SECRET_TOKEN = 'oregon2025'; // deve ser igual ao definido no Apps Script
+
+  // ── submit ───────────────────────────────────────────────────────
+  document.getElementById('btn-submit').addEventListener('click', async function () {
+    const rows = document.querySelectorAll('.indicado-row');
+    let valid = true;
+    let filled = [];
+    let anyTouched = false;
+
+    rows.forEach(row => {
+      const nameEl  = row.querySelector('[data-field="name"]');
+      const phoneEl = row.querySelector('[data-field="phone"]');
+      const name  = nameEl.value.trim();
+      const phone = phoneEl.value.trim();
+      const phoneDigits = phone.replace(/\D/g, '');
+
+      if (name || phone) anyTouched = true;
+
+      if (!name && !phone) return; // blank row — skip
+
+      let rowValid = true;
+      if (!name)  { nameEl.classList.add('error');  rowValid = false; valid = false; }
+      if (!phone || phoneDigits.length < 10) { phoneEl.classList.add('error'); rowValid = false; valid = false; }
+
+      if (rowValid) {
+        filled.push({
+          nome: name,
+          telefone: phone,
+          cidade: row.querySelector('[data-field="city"]').value.trim(),
+          vinculo: row.querySelector('[data-field="vinculo"]').value
+        });
+      }
+    });
+
+    // nothing touched at all → highlight row 1
+    if (!anyTouched) {
+      rows[0].querySelector('[data-field="name"]').classList.add('error');
+      rows[0].querySelector('[data-field="phone"]').classList.add('error');
+      return;
+    }
+
+    if (!valid) return;
+    if (filled.length === 0) return;
+
+    // ── loading state ──
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    btn.style.opacity = '0.6';
+
+    // ── envio para Google Sheets ──
+    try {
+      const payload = {
+        token: SECRET_TOKEN,
+        timestamp: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+        indicacoes: filled
+      };
+
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        // Apps Script como Web App requer no-cors para chamadas cross-origin sem CORS headers
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      // no-cors não permite ler a resposta — assumimos sucesso se não lançou erro
+      showSuccess(filled.length);
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Enviar indicações';
+      btn.style.opacity = '1';
+      showNetworkError();
+    }
+  });
+
+  function showSuccess(n) {
+    let msg;
+    if (n === 10) {
+      msg = 'Você completou todas as 10 indicações — seu mês gratuito está garantido.';
+    } else if (n === 1) {
+      msg = 'Recebemos 1 indicação. Faltam ' + (10 - n) + ' para o mês gratuito.';
+    } else {
+      msg = 'Recebemos ' + n + ' indicações. Faltam ' + (10 - n) + ' para o mês gratuito.';
+    }
+    document.getElementById('success-msg').textContent = msg;
+    document.getElementById('form-section').style.display = 'none';
+    const ss = document.getElementById('success-screen');
+    ss.style.display = 'flex';
+  }
+
+  function showNetworkError() {
+    let el = document.getElementById('network-error');
+    if (!el) {
+      el = document.createElement('p');
+      el.id = 'network-error';
+      el.style.cssText = 'text-align:center;font-size:12px;font-weight:300;color:rgba(220,80,60,0.85);margin-top:14px;letter-spacing:0.02em;';
+      document.querySelector('.submit-wrap').insertAdjacentElement('afterend', el);
+    }
+    el.textContent = 'Erro ao enviar. Verifique sua conexão e tente novamente.';
+  }
+
+})();
+</script>
+</body>
+</html>
