@@ -10,20 +10,20 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: linear-gradient(145deg, #0D2B2E 0%, #0F3A3D 40%, #0A2E32 100%);
+    --bg: linear-gradient(145deg, #091E21 0%, #0B2B2E 40%, #071A1D 100%);
     --teal: #4FB2A4;
     --teal-hover: #5EC4B5;
     --teal-light: rgba(79,178,164,0.12);
     --teal-border: rgba(79,178,164,0.7);
     --teal-muted: rgba(79,178,164,0.6);
     --white: #ffffff;
-    --label: rgba(255,255,255,0.3);
-    --placeholder: rgba(255,255,255,0.18);
-    --input-border: 0.5px solid rgba(255,255,255,0.18);
-    --sep: rgba(255,255,255,0.07);
+    --label: rgba(255,255,255,0.65);
+    --placeholder: rgba(255,255,255,0.28);
+    --input-border: 1px solid rgba(255,255,255,0.28);
+    --sep: rgba(255,255,255,0.1);
     --error: rgba(220,80,60,0.85);
-    --bg-dark: #0D2B2E;
-    --bg-mid: #0F3A3D;
+    --bg-dark: #091E21;
+    --bg-mid: #0B2B2E;
   }
 
   html, body {
@@ -77,7 +77,7 @@
     font-size: 7px;
     font-weight: 300;
     letter-spacing: 0.35em;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.7);
     text-align: center;
     text-transform: uppercase;
     margin-top: 3px;
@@ -87,7 +87,7 @@
     font-size: 9px;
     font-weight: 300;
     letter-spacing: 0.3em;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.6);
     text-align: center;
     text-transform: uppercase;
     margin-top: 5px;
@@ -113,7 +113,7 @@
   .subtitle {
     font-size: 12px;
     font-weight: 300;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.75);
     text-align: center;
     margin-top: 8px;
     letter-spacing: 0.02em;
@@ -129,7 +129,7 @@
     padding: 7px 16px;
     font-size: 11px;
     font-weight: 300;
-    color: rgba(255,255,255,0.65);
+    color: rgba(255,255,255,0.9);
     letter-spacing: 0.02em;
   }
   .badge-dot {
@@ -157,7 +157,7 @@
   .sender-input {
     width: 100%;
     max-width: 320px;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.07);
     border: var(--input-border);
     border-radius: 2px;
     color: var(--white);
@@ -224,7 +224,7 @@
   input[type="tel"],
   select {
     width: 100%;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.07);
     border: var(--input-border);
     border-radius: 2px;
     color: var(--white);
@@ -237,9 +237,9 @@
     appearance: none;
     -webkit-appearance: none;
   }
-  input::placeholder { color: rgba(255,255,255,0.22); }
-  select { color: rgba(255,255,255,0.55); cursor: pointer; }
-  select option { background: #0F3A3D; color: var(--white); }
+  input::placeholder { color: rgba(255,255,255,0.35); }
+  select { color: rgba(255,255,255,0.85); cursor: pointer; }
+  select option { background: #0B2B2E; color: var(--white); }
 
   input:focus, select:focus {
     border-color: var(--teal-border);
@@ -265,7 +265,7 @@
   .progress-labels span {
     font-size: 10px;
     font-weight: 300;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.7);
     letter-spacing: 0.04em;
   }
   .progress-count { color: var(--teal) !important; font-weight: 400 !important; }
@@ -312,7 +312,7 @@
     margin-top: 28px;
     font-size: 11px;
     font-weight: 300;
-    color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.5);
     letter-spacing: 0.02em;
   }
 
@@ -347,7 +347,7 @@
   .success-screen p {
     font-size: 13px;
     font-weight: 300;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.75);
     max-width: 340px;
     line-height: 1.7;
   }
@@ -387,14 +387,14 @@
     <header>
       <!-- LOGO -->
       <div class="logo-wrap">
-        <div style="display:flex;align-items:center;justify-content:center;gap:0;font-family:'Jost',sans-serif;font-weight:300;font-size:42px;color:#ffffff;letter-spacing:0.02em;line-height:1;" aria-label="Oregon Invest">
-          <span>oreg</span>
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#4FB2A4;margin:0 2px;flex-shrink:0;">
-            <span style="display:block;width:23px;height:23px;border-radius:50%;background:#0F3A3D;"></span>
-          </span>
-          <span>n</span>
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;" aria-label="Oregon Invest">
+          <div style="display:flex;align-items:center;font-family:'Jost',sans-serif;font-weight:300;font-size:52px;color:#ffffff;letter-spacing:0.01em;line-height:1;">
+            <span>oreg</span>
+            <span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:#4FB2A4;margin:0 2px;flex-shrink:0;"></span>
+            <span>n</span>
+          </div>
+          <div style="font-family:'Jost',sans-serif;font-weight:400;font-size:13px;color:#4FB2A4;letter-spacing:0.28em;text-transform:uppercase;margin-top:8px;">INVEST</div>
         </div>
-        <div class="logo-sub">Invest</div>
         <div class="logo-tagline">Você no centro, sempre.</div>
       </div>
 
@@ -410,8 +410,17 @@
 
     <!-- IDENTIFICAÇÃO DO REMETENTE -->
     <div class="sender-section">
-      <span class="sender-label">Seu nome completo</span>
-      <input type="text" id="sender-name" class="sender-input" placeholder="Como você se chama?" autocomplete="off">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <div>
+          <span class="sender-label">Seu nome completo</span>
+          <input type="text" id="sender-name" class="sender-input" placeholder="Como você se chama?" autocomplete="off">
+        </div>
+        <div>
+          <span class="sender-label">Seu e-mail</span>
+          <input type="email" id="sender-email" class="sender-input" placeholder="seu@email.com" autocomplete="off">
+        </div>
+      </div>
+      <input type="text" id="honeypot" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
     </div>
 
     <!-- COLUMN HEADERS -->
@@ -461,9 +470,9 @@
 <script>
 (function () {
   const TOTAL = 10;
-  const vinculos = ['—', 'Família', 'Amigo', 'Conhecido'];
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz91DSCsiAIwRqotTsOZxh0bcgZ5xzavy9qL99BVEMYTRxOFr-UZDWCWhMN0th8tuYY/exec';
+  const vinculos = ['—', 'Família', 'Amigo', 'Trabalho', 'Conhecido'];
 
-  // ── build rows ──────────────────────────────────────────────────
   const container = document.getElementById('rows-container');
 
   for (let i = 1; i <= TOTAL; i++) {
@@ -472,13 +481,11 @@
     row.className = 'indicado-row';
     row.dataset.index = i;
 
-    // number
     const numEl = document.createElement('span');
     numEl.className = 'row-num';
     numEl.textContent = num;
     row.appendChild(numEl);
 
-    // name
     const nameInput = document.createElement('input');
     nameInput.type = 'text';
     nameInput.placeholder = 'Nome completo';
@@ -486,7 +493,6 @@
     nameInput.autocomplete = 'off';
     row.appendChild(nameInput);
 
-    // phone
     const phoneInput = document.createElement('input');
     phoneInput.type = 'tel';
     phoneInput.placeholder = '(00) 00000-0000';
@@ -494,14 +500,12 @@
     phoneInput.autocomplete = 'off';
     row.appendChild(phoneInput);
 
-    // city
     const cityInput = document.createElement('input');
     cityInput.type = 'text';
     cityInput.placeholder = '—';
     cityInput.dataset.field = 'city';
     row.appendChild(cityInput);
 
-    // vínculo
     const sel = document.createElement('select');
     sel.dataset.field = 'vinculo';
     vinculos.forEach(v => {
@@ -514,53 +518,41 @@
 
     container.appendChild(row);
 
-    // events
-    nameInput.addEventListener('input', () => { updateRowState(row); updateProgress(); });
-    phoneInput.addEventListener('input', () => { phoneMask(phoneInput); updateRowState(row); updateProgress(); });
-    nameInput.addEventListener('input', () => clearError(nameInput));
-    phoneInput.addEventListener('input', () => clearError(phoneInput));
+    nameInput.addEventListener('input', () => { updateRowState(row); updateProgress(); clearError(nameInput); });
+    phoneInput.addEventListener('input', () => { phoneMask(phoneInput); updateRowState(row); updateProgress(); clearError(phoneInput); });
   }
 
-  // sender error clear
-  document.getElementById('sender-name').addEventListener('input', function() {
+  document.getElementById('sender-name').addEventListener('input', function () {
     this.classList.remove('error');
   });
 
-  // ── phone mask ───────────────────────────────────────────────────
+  document.getElementById('sender-email').addEventListener('input', function () {
+    this.classList.remove('error');
+  });
+
   function phoneMask(input) {
     let v = input.value.replace(/\D/g, '').slice(0, 11);
-    if (v.length === 0) { input.value = ''; return; }
-    if (v.length <= 2)  { input.value = '(' + v; return; }
-    if (v.length <= 6)  { input.value = '(' + v.slice(0,2) + ') ' + v.slice(2); return; }
-    if (v.length <= 10) { input.value = '(' + v.slice(0,2) + ') ' + v.slice(2,6) + '-' + v.slice(6); return; }
-    // 11 digits — mobile
+    if (v.length === 0)  { input.value = ''; return; }
+    if (v.length <= 2)   { input.value = '(' + v; return; }
+    if (v.length <= 6)   { input.value = '(' + v.slice(0,2) + ') ' + v.slice(2); return; }
+    if (v.length <= 10)  { input.value = '(' + v.slice(0,2) + ') ' + v.slice(2,6) + '-' + v.slice(6); return; }
     input.value = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
   }
 
-  // ── row complete state ───────────────────────────────────────────
   function updateRowState(row) {
     const name  = row.querySelector('[data-field="name"]').value.trim();
     const phone = row.querySelector('[data-field="phone"]').value.trim();
-    row.classList.toggle('row-complete', name.length > 0 && phone.length >= 10);
+    row.classList.toggle('row-complete', name.length > 0 && phone.replace(/\D/g, '').length >= 10);
   }
 
-  // ── progress ─────────────────────────────────────────────────────
   function updateProgress() {
     const count = document.querySelectorAll('.row-complete').length;
     document.getElementById('progress-count').textContent = count + ' / 10';
     document.getElementById('progress-fill').style.width = (count / TOTAL * 100) + '%';
   }
 
-  function clearError(el) {
-    el.classList.remove('error');
-  }
+  function clearError(el) { el.classList.remove('error'); }
 
-  // ── configuração ─────────────────────────────────────────────────
-  // Cole aqui a URL gerada pelo Apps Script após publicar o script como Web App
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyr9yHrqtpkwIOg8NUZWdvDXcUM54ZWnBLEvJH9RWE7T_rnfuOS646p-VuOJGxPoFE_BA/exec';
-  const SECRET_TOKEN = 'oregon2025'; // deve ser igual ao definido no Apps Script
-
-  // ── submit ───────────────────────────────────────────────────────
   document.getElementById('btn-submit').addEventListener('click', async function () {
     const rows = document.querySelectorAll('.indicado-row');
     let valid = true;
@@ -570,86 +562,88 @@
     rows.forEach(row => {
       const nameEl  = row.querySelector('[data-field="name"]');
       const phoneEl = row.querySelector('[data-field="phone"]');
-      const name  = nameEl.value.trim();
-      const phone = phoneEl.value.trim();
-      const phoneDigits = phone.replace(/\D/g, '');
+      const name    = nameEl.value.trim();
+      const phone   = phoneEl.value.trim();
+      const digits  = phone.replace(/\D/g, '');
 
       if (name || phone) anyTouched = true;
-
-      if (!name && !phone) return; // blank row — skip
+      if (!name && !phone) return;
 
       let rowValid = true;
-      if (!name)  { nameEl.classList.add('error');  rowValid = false; valid = false; }
-      if (!phone || phoneDigits.length < 10) { phoneEl.classList.add('error'); rowValid = false; valid = false; }
+      if (!name)              { nameEl.classList.add('error');  rowValid = false; valid = false; }
+      if (digits.length < 10) { phoneEl.classList.add('error'); rowValid = false; valid = false; }
 
       if (rowValid) {
         filled.push({
-          nome: name,
+          nome:     name,
           telefone: phone,
-          cidade: row.querySelector('[data-field="city"]').value.trim(),
-          vinculo: row.querySelector('[data-field="vinculo"]').value
+          cidade:   row.querySelector('[data-field="city"]').value.trim(),
+          vinculo:  row.querySelector('[data-field="vinculo"]').value
         });
       }
     });
 
-    // valida nome do remetente
-    const senderEl = document.getElementById('sender-name');
+    const senderEl   = document.getElementById('sender-name');
     const senderName = senderEl.value.trim();
-    if (!senderName) {
-      senderEl.classList.add('error');
-      senderEl.focus();
-      valid = false;
-    }
+    if (!senderName) { senderEl.classList.add('error'); senderEl.focus(); valid = false; }
 
-    // nothing touched at all → highlight row 1
+    const emailEl  = document.getElementById('sender-email');
+    const senderEmail = emailEl.value.trim();
+    const emailValid  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(senderEmail);
+    if (!emailValid) { emailEl.classList.add('error'); if (senderName) emailEl.focus(); valid = false; }
+
     if (!anyTouched) {
       rows[0].querySelector('[data-field="name"]').classList.add('error');
       rows[0].querySelector('[data-field="phone"]').classList.add('error');
       return;
     }
 
-    if (!valid) return;
-    if (filled.length === 0) return;
+    if (!valid || filled.length === 0) return;
 
-    // ── loading state ──
     const btn = document.getElementById('btn-submit');
     btn.disabled = true;
     btn.textContent = 'Enviando...';
     btn.style.opacity = '0.6';
 
-    // ── envio para Google Sheets via fetch no-cors ──
     const payload = {
-      remetente: document.getElementById('sender-name').value.trim(),
-      token: SECRET_TOKEN,
-      timestamp: new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
+      honeypot:   document.getElementById('honeypot').value,
+      remetente:  senderName,
+      email:      senderEmail,
+      timestamp:  new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
       indicacoes: filled
     };
 
     try {
-      fetch(SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+      const response = await fetch(SHEET_URL, {
+        method:  'POST',
         headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload)
+        body:    JSON.stringify(payload)
       });
-      // no-cors não retorna resposta — aguarda 1.5s e assume sucesso
-      setTimeout(() => { showSuccess(filled.length); }, 1500);
+
+      const result = await response.json();
+
+      if (result.status === 200) {
+        showSuccess(result.total);
+      } else {
+        throw new Error(result.message);
+      }
     } catch (err) {
       btn.disabled = false;
       btn.textContent = 'Enviar indicações';
       btn.style.opacity = '1';
-      showNetworkError();
+      showNetworkError(err.message);
     }
   });
 
-  function showSuccess(n) {
+  function showSuccess(total) {
+    const n = Math.min(total || 0, 10);
     let msg;
-    if (n === 10) {
+    if (n >= 10) {
       msg = 'Você completou todas as 10 indicações — seu mês gratuito está garantido.';
     } else if (n === 1) {
-      msg = 'Recebemos 1 indicação. Faltam ' + (10 - n) + ' para o mês gratuito.';
+      msg = 'Você tem 1 indicação no total. Complete as ' + (10 - n) + ' restantes para ganhar o mês gratuito.';
     } else {
-      msg = 'Recebemos ' + n + ' indicações. Faltam ' + (10 - n) + ' para o mês gratuito.';
+      msg = 'Você tem ' + n + ' indicações no total. Complete as ' + (10 - n) + ' restantes para ganhar o mês gratuito.';
     }
     document.getElementById('success-msg').textContent = msg;
     document.getElementById('form-section').style.display = 'none';
@@ -657,7 +651,7 @@
     ss.style.display = 'flex';
   }
 
-  function showNetworkError() {
+  function showNetworkError(detail) {
     let el = document.getElementById('network-error');
     if (!el) {
       el = document.createElement('p');
@@ -665,7 +659,7 @@
       el.style.cssText = 'text-align:center;font-size:12px;font-weight:300;color:rgba(220,80,60,0.85);margin-top:14px;letter-spacing:0.02em;';
       document.querySelector('.submit-wrap').insertAdjacentElement('afterend', el);
     }
-    el.textContent = 'Erro ao enviar. Verifique sua conexão e tente novamente.';
+    el.textContent = detail || 'Erro ao enviar. Verifique sua conexão e tente novamente.';
   }
 
 })();
